@@ -1,36 +1,40 @@
-# File Management
-----
-## Write a C program to create a new text file and write "Hello, World!" to it? 
+# File Management 
+---
+## Write a C program to create a new text file and write "Hello, World!" to it?
+
 ```c
 #include<stdio.h>
-#include<sys/types.h>
-#include<unistd.h>
 #include<fcntl.h>
+#include<unistd.h>
 #include<string.h>
-void main()
+#define FILENAME "newfile.txt"
+int main()
 {
-        int fd,ret;
-        char buf[]="hello,world,";
-        fd=open("createfile.txt",O_WRONLY|O_CREAT,0660);
-        if(fd<0)
+        int fd;
+        const char *data = "Hello, World!\n";
+        int bytes;
+        fd=open(FILENAME,O_WRONLY | O_CREAT | O_TRUNC,0755);
+        if(fd == -1)
         {
-                printf("failed to open the file \n");
-                return;
+                perror("Error opening file");
+                return 1;
         }
-        printf("file opened successfully\n");
-        ret=write(fd,buf,strlen(buf));
-        if(ret<0)
-        {
-                printf("failed to write\n");
-                return;
-        }
-        printf("written %d bytes to file \n",ret);
-        close(fd);
-}
-```
 
+        if((bytes=write(fd,data,strlen(data))) == -1)
+        {
+                perror("Error writing data");
+                close(fd);
+                return 1;
+        }
+        printf("Hello, World! written successfully\n");
+        close(fd);
+        return 0;
+}
+
+```
 ## Develop a C program to open an existing text file and display its contents?
-```c
+
+```c       
 #include<stdio.h>
 #include<unistd.h>
 #include<fcntl.h>
@@ -62,8 +66,8 @@ int main()
 }
 ```
 ## Implement a C program to create a new directory named "Test" in the current directory?
-```c
 
+```c
 #include<stdio.h>
 #include<dirent.h>
 #include<sys/stat.h>
@@ -120,7 +124,7 @@ int main()
         return 0;
 }
 ```
-## Implement a C program to delete a file named "delete_me.txt"? 
+## Implement a C program to delete a file named "delete_me.txt"?
 ```c
 #include<stdio.h>
 #include<unistd.h>
@@ -244,9 +248,8 @@ int main()
         return 0;
 }
 ```
-## Develop a C program to check if a directory named "Test" exists in the current directory? 
+## Develop a C program to check if a directory named "Test" exists in the current directory?
 ```c
-
 #include<stdio.h>
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -275,9 +278,8 @@ int main()
         return 0;
 }
 ```
-##  Implement a C program to create a new directory named "Backup" in the parent directory?
-```c 
-
+## Implement a C program to create a new directory named "Backup" in the parent directory? 
+```c
 #include<stdio.h>
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -295,7 +297,7 @@ int main()
         return 0;
 }
 ```
-##  Develop a C program to delete all files in a directory named "Temp"?
+## Develop a C program to delete all files in a directory named "Temp"?
 ```c
 #include<stdio.h>
 #include<stdlib.h>
@@ -324,7 +326,6 @@ int main()
                 {
                         continue;
                 }
-
                 snprintf(file,sizeof(file),"%s/%s",path,start->d_name);
                 struct stat st;
                 if(stat(file,&st) == 0 && S_ISREG(st.st_mode))
@@ -358,11 +359,9 @@ int main()
                 perror("open");
                 return 1;
         }
-
         char data[1024];
         int bytes;
         int count = 0;
-
         while((bytes=read(fd,data,sizeof(data))) > 0)
         {
                 for(int i=0;i<bytes;i++)
@@ -383,10 +382,8 @@ int main()
         return 0;
 }
 ```
-
 ## Write a C program to append "Goodbye!" to the end of an existing file named "message.txt"? 
 ```c
-
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
@@ -408,9 +405,8 @@ int main()
         return 0;
 }
 ```
-##  Implement a C program to change the permissions of a file named "file.txt" to read only?
+## Implement a C program to change the permissions of a file named "file.txt" to read only? 
 ```c
-
 #include<stdio.h>
 #include<sys/stat.h>
 
@@ -428,9 +424,8 @@ int main()
         return 0;
 }
 ```
-##  Write a C program to change the ownership of a file named "file.txt" to the user "user1"?
+## Write a C program to change the ownership of a file named "file.txt" to the user "user1"? 
 ```c
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
@@ -462,9 +457,9 @@ int main()
         printf("Ownership of '%s' changed to use '%s' (UID: %d, GID : %d)\n",file,username,uid,gid);
         return 0;
 }
-
-19.  Develop a C program to get the last modified timestamp of a file named "file.txt"? 
-
+```
+## Develop a C program to get the last modified timestamp of a file named "file.txt"? 
+```c
 #include<stdio.h>
 #include<sys/stat.h>
 #include<time.h>
@@ -481,9 +476,9 @@ int main()
         printf("Timestamp of '%s' is %s",file,ctime(&st.st_mtime));
         return 0;
 }
-
-20.  Implement a C program to create a temporary file and write some data to it? 
-
+```
+## Implement a C program to create a temporary file and write some data to it? 
+```c
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
@@ -512,9 +507,9 @@ int main()
         close(fd);
         return 0;
 }
-
-21. Write a C program to check if a given path refers to a file or a directory? 
-
+```
+## Write a C program to check if a given path refers to a file or a directory? 
+```c
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -542,10 +537,9 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
-22. Develop a C program to create a hard link named "hardlink.txt" to a file named 
-"source.txt"?
-
+```
+## Develop a C program to create a hard link named "hardlink.txt" to a file named "source.txt"?
+```c
 #include<stdio.h>
 #include<unistd.h>
 
@@ -563,10 +557,9 @@ int main()
         printf("Hard link '%s' created for '%s'\n",linkname,src);
         return 0;
 }
-
-23. . Implement a C program to read and display the contents of a CSV file named 
-"data.csv"?
-
+```
+## Implement a C program to read and display the contents of a CSV file named "data.csv"?
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
@@ -604,8 +597,9 @@ int main()
         close(fd);
         return 0;
 }
-24. Write a C program to get the absolute path of the current working directory? 
-
+```
+## Write a C program to get the absolute path of the current working directory? 
+```c
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -628,9 +622,9 @@ int main(void)
         write(STDOUT_FILENO,"\n",1);
         return 0;
 }
-
-25. Develop a C program to get the size of a directory named "Documents"? 
-
+```
+## Develop a C program to get the size of a directory named "Documents"? 
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -659,14 +653,12 @@ int main(void)
         {
             continue;
         }
-
         snprintf(path, sizeof(path), "Documents/%s", entry->d_name);
         if (stat(path, &st) == -1)
         {
             perror("stat");
             continue;
         }
-
         if (S_ISREG(st.st_mode))
         {
             total_size += st.st_size;
@@ -677,12 +669,11 @@ int main(void)
     char buffer[128];
     int len = snprintf(buffer, sizeof(buffer), "Total size: %lld bytes\n", total_size);
     write(STDOUT_FILENO, buffer, len);
-
     return 0;
 }
-
-27. Write a C program to get the number of files in a directory named "Images"?
-
+```
+## Write a C program to get the number of files in a directory named "Images"?
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<dirent.h>
@@ -732,10 +723,9 @@ int main()
         write(STDOUT_FILENO,buffer,len);
         return 0;
 }
-
-28. Develop a C program to create a FIFO (named pipe) named "myfifo" in the current 
-directory? 
-
+```
+## Develop a C program to create a FIFO (named pipe) named "myfifo" in the current directory? 
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<sys/stat.h>
@@ -752,9 +742,9 @@ int main(void)
         write(STDOUT_FILENO,"FIFO 'myfifo' created successfully\n",36);
         return 0;
 }
-
-29. Implement a C program to read data from a FIFO named "myfifo"? 
-
+```
+## Implement a C program to read data from a FIFO named "myfifo"? 
+```c
 #include<fcntl.h>
 #include<unistd.h>
 #include<stdlib.h>
@@ -792,9 +782,9 @@ int main()
         close(fd);
         return 0;
 }
-
-30. Write a C program to truncate a file named "file.txt" to a specified length?
-
+```
+## Write a C program to truncate a file named "file.txt" to a specified length?
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
@@ -824,10 +814,9 @@ int main(int argc,char *argv[])
         write(STDOUT_FILENO,"File truncated successfully!\n",28);
         return 0;
 }
-
-31. Develop a C program to search for a specific string in a file named "data.txt" and 
-display the line number(s) where it occurs? 
-
+```
+## Develop a C program to search for a specific string in a file named "data.txt" and display the line number(s) where it occurs? 
+```c
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
@@ -850,7 +839,6 @@ int main()
         write(2, "Cannot open file\n", 17);
         return 1;
     }
-
     while ((n = read(fd, buf, BUF_SIZE)) > 0)
     {
         for (int j = 0; j < n; j++)
@@ -871,7 +859,6 @@ int main()
             }
         }
     }
-
     if (!found)
     {
         write(1, "Not found\n", 10);
@@ -880,10 +867,9 @@ int main()
     close(fd);
     return 0;
 }
-
-32 .  Implement a C program to get the file type (regular file, directory, symbolic link, etc.) of 
-a given path?
-
+```
+## Implement a C program to get the file type (regular file, directory, symbolic link, etc.) of a given path?
+```c
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
@@ -937,9 +923,9 @@ int main() {
 
     return 0;
 }
-
-33. Write a C program to create a new empty file named "empty.txt"? 
-
+```
+## Write a C program to create a new empty file named "empty.txt"? 
+```c
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
@@ -958,9 +944,9 @@ int main()
         close(fd);
         return 0;
 }
-
-34. Develop a C program to get the permissions (mode) of a file named "file.txt"? 
-
+```
+## Develop a C program to get the permissions (mode) of a file named "file.txt"? 
+```c
 #include <stdio.h>
 #include <sys/stat.h>
 
@@ -997,10 +983,9 @@ int main()
 
     return 0;
 }
-
-35 . Implement a C program to recursively delete a directory named "Temp" and all its 
-contents? 
-
+```
+## Implement a C program to recursively delete a directory named "Temp" and all its contents? 
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -1058,9 +1043,9 @@ int main()
         remove_dir("Temp");
         return 0;
 }
-
-36. Write a C program to read and display the first 10 lines of a file named "log.txt"?
-
+```
+## Write a C program to read and display the first 10 lines of a file named "log.txt"?
+```c
 #include<fcntl.h>
 #include<unistd.h>
 #include<string.h>
@@ -1104,10 +1089,9 @@ int main()
         close(fd);
         return 0;
 }
-
-37 . Develop a C program to read data from a text file named "input.txt" and write it to 
-another file named "output.txt" in reverse order? 
-
+```
+## Develop a C program to read data from a text file named "input.txt" and write it to another file named "output.txt" in reverse order? 
+```c
 #include<fcntl.h>
 #include<unistd.h>
 #include<stdio.h>
@@ -1166,9 +1150,9 @@ int main()
         printf("Reversed content written to logout.txt\n");
         return 0;
 }
-38. Implement a C program to create a new directory named with the current date in the 
-format "YYYY-MM-DD"?
-
+```
+## Implement a C program to create a new directory named with the current date in the format "YYYY-MM-DD"?
+```c
 #include<stdio.h>
 #include<time.h>
 #include<sys/stat.h>
@@ -1190,9 +1174,9 @@ int main()
         printf("Directory '%s' created successfully\n",dir);
         return 0;
 }
-
-39 . Write a C program to read and display the contents of a binary file named "binary.bin"? 
-
+```
+## Write a C program to read and display the contents of a binary file named "binary.bin"? 
+```c
 #include<fcntl.h>
 #include<unistd.h>
 #include<stdio.h>
@@ -1228,9 +1212,9 @@ int main()
         close(fd);
         return 0;
 }
-
-40 .  Develop a C program to get the size of the largest file in a directory?
-
+```
+## Develop a C program to get the size of the largest file in a directory?
+```c
 #include<stdio.h>
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -1291,9 +1275,9 @@ int main()
         }
         return 0;
 }
-
-41.  Implement a C program to check if a file named "data.txt" is readable? 
-
+```
+## Implement a C program to check if a file named "data.txt" is readable? 
+```c
 #include<stdio.h>
 #include<unistd.h>
 
@@ -1311,10 +1295,9 @@ int main()
         }
         return 0;
 }
-
-42. Write a C program to create a new directory named "Logs" and move all files with the 
-".log" extension into it? 
-
+```
+## Write a C program to create a new directory named "Logs" and move all files with the ".log" extension into it? 
+```c
 #include<stdio.h>
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -1384,9 +1367,9 @@ int main()
         closedir(dir);
         return 0;
 }
-
-43. Develop a C program to check if a file named "config.ini" is writable?
-
+```
+## Develop a C program to check if a file named "config.ini" is writable?
+```c
 #include<stdio.h>
 #include<unistd.h>
 
@@ -1403,10 +1386,9 @@ int main()
         }
         return 0;
 }
-
-
-44.  Implement a C program to read the contents of a text file named "instructions.txt" and 
-execute the instructions as shell commands?
+```
+## Implement a C program to read the contents of a text file named "instructions.txt" and execute the instructions as shell commands?
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -1448,9 +1430,9 @@ int main()
         fclose(fp);
         return 0;
 }
-
-45. Write a C program to get the number of hard links to a file named "file.txt"? 
-
+```
+## Write a C program to get the number of hard links to a file named "file.txt"? 
+```c
 #include <stdio.h>
 #include <sys/stat.h>
 
@@ -1467,10 +1449,9 @@ int main()
     printf("Number of hard links to 'pk.txt': %lu\n", (unsigned long)st.st_nlink);
     return 0;
 }
-
-46. Develop a C program to copy the contents of all text files in a directory into a single file 
-named "combined.txt"? 
-
+```
+## Develop a C program to copy the contents of all text files in a directory into a single file named "combined.txt"? 
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -1502,10 +1483,8 @@ int main()
                 closedir(dir);
                 return 1;
         }
-
         struct dirent *entry;
         char buf[BUF_SIZE];
-
         while((entry=readdir(dir)) != NULL)
         {
                 if(entry->d_name[0] == '.')
@@ -1541,14 +1520,12 @@ int main()
         }
         fclose(out);
         closedir(dir);
-
         printf("All .txt files combined into combined.txt\n");
         return 0;
 }
-
-47. Implement a C program to recursively calculate the total size of all files in a directory 
-and its subdirectories?
-
+```
+## Implement a C program to recursively calculate the total size of all files in a directory and its subdirectories?
+```c
 #include<stdio.h>
 #include<stdlib.h>
 #include<sys/stat.h>
@@ -1599,7 +1576,6 @@ int get_size(const char *path)
         }
         return size;
 }
-
 int main(int argc,char *argv[])
 {
         const char *dir = ".";
@@ -1611,9 +1587,9 @@ int main(int argc,char *argv[])
         printf("Total size of all file in '%s' (including subdirectories): %lld bytes\n",dir,(long long)total);
         return 0;
 }
-
-48. Write a C program to get the number of bytes in a file named "data.bin"? 
-
+```
+## Write a C program to get the number of bytes in a file named "data.bin"? 
+```c
 #include <stdio.h>
 #include <sys/stat.h>
 
@@ -1630,10 +1606,9 @@ int main()
     printf("Size of 'data.bin' is %lld bytes\n", (long long)st.st_size);
     return 0;
 }
-
-49. Develop a C program to create a new directory named with the current timestamp in the 
-format "YYYY-MM-DD-HH-MM-SS"? 
-
+```
+## Develop a C program to create a new directory named with the current timestamp in the format "YYYY-MM-DD-HH-MM-SS"? 
+```c
 #include <stdio.h>
 #include <time.h>
 #include <sys/stat.h>
@@ -1663,10 +1638,9 @@ int main()
     printf("Directory created: %s\n", dirname);
     return 0;
 }
-
-50. Write a C program to create a new directory named "Documents" in the current 
-directory?
-
+```
+## Write a C program to create a new directory named "Documents" in the current directory?
+```c
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
