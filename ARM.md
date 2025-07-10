@@ -135,34 +135,50 @@ STR R2, [R0, #4]  ; Store result back to memory
 * Ideal for systems where power efficiency, speed, and performance per watt matter — like smartphones, IoT, and embedded systems.
 * ARM is the most popular RISC implementation.
 
-### Interview Q: What is the diff b/w RISC and CISC?
-
-```
-## Difference Between CISC and RISC (Qualcomm Interview Context)
+### Interview Question: What is the difference between RISC and CISC?
 
 **CISC (Complex Instruction Set Computer)** and **RISC (Reduced Instruction Set Computer)** are two types of CPU architecture designs.
 
-### CISC:
+---
+
+### CISC (Complex Instruction Set Computer)
+
 - Has complex instructions that can perform multiple operations in a single instruction.
 - Instructions are often **variable in length** and may take **multiple clock cycles** to execute.
 - Focuses on reducing the number of instructions per program, at the cost of more complex hardware.
 
-**Example**:  
-- **x86 architecture** (used in Intel processors) is CISC.  
+**Example:**
+- **x86 architecture** (used in Intel processors) is CISC.
 - Instruction like `MUL` can directly multiply two memory operands.
 
-### RISC:
+---
+
+### RISC (Reduced Instruction Set Computer)
+
 - Uses a smaller set of **simple instructions**, each typically executed in **one clock cycle**.
 - Instructions are of **uniform size** and follow a **load/store** architecture.
 - Emphasizes compiler optimization and simpler hardware design.
 
-**Example**:  
-- **ARM architecture** (used in Qualcomm Snapdragon) is RISC.  
+**Example:**
+- **ARM architecture** (used in Qualcomm Snapdragon) is RISC.
 - Multiplication would use multiple instructions like:
   - `LDR` (load data)
   - `MUL` (multiply)
   - `STR` (store result)
-```
+
+---
+
+### Summary Table
+
+| Feature               | CISC                        | RISC                          |
+|-----------------------|-----------------------------|-------------------------------|
+| Instruction Set       | Complex & large             | Simple & small                |
+| Instruction Length    | Variable                    | Fixed                         |
+| Execution Cycles      | Multiple per instruction    | Single per instruction        |
+| Hardware Complexity   | High                        | Low                           |
+| Compiler Dependency   | Low                         | High                          |
+| Examples              | x86, Intel                  | ARM, MIPS                     |
+
 ### ARM vs x86 Instruction Sets (ISA)
 ```
                      ┌────────────────────────────┐
