@@ -231,6 +231,8 @@ ADD AX, 3
 * ARM: Each step is simple and explicit.
 * x86: Instructions are powerful and compact (ADD can take immediate value).
 ```
+
+
 ### What is a Processor?
 
 A processor (also called a CPU – Central Processing Unit) is the brain of a computer or embedded system. It performs calculations, logical decisions, and controls the execution of programs by processing instructions one step at a time.
